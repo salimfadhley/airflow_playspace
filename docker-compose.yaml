@@ -2,6 +2,10 @@ version: '3.7'
 
 x-base-dev: &base-dev
   restart: on-failure
+  volumes:
+    - ./src:/src
+    - .:/project
+    - airflow_home:/airflow
 
 
 services:
@@ -14,18 +18,28 @@ services:
     volumes:
       - ./src:/src
       - .:/project
-      - airflow_home:/airflow
+      - ./data/airflow:/airflow
 
-  airflow:
+  airflow_scheduler:
     <<: *base-dev
     build:
       context: .
       target: airflow
-    volumes:
-      - ./src:/src
-      - .:/project
-      - airflow_home:/airflow
-    entrypoint: ["/project/bin/entrypoint.py"]
+    entrypoint: ["python"]
+    command: ['/project/bin/entrypoint.py', 'scheduler']
+
+
+  airflow_webserver:
+    <<: *base-dev
+    build:
+      context: .
+      target: airflow
+    entrypoint: ["python"]
+    command: ['/project/bin/entrypoint.py', 'webserver']
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "airflow_scheduler"
 
 
 
