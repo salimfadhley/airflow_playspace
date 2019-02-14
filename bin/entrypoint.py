@@ -9,11 +9,12 @@ AIRFLOW_COMMAND = "/usr/local/bin/airflow"
 
 @click.command()
 @click.argument("mode")
-def main(mode:str):
+@click.option("--port", type=int, default=8080)
+def main(mode:str, port:int):
     if mode=="webserver":
-        command = f"{AIRFLOW_COMMAND} webserver -p 8080"
-    elif mode=="scheduler":
-        command = f"{AIRFLOW_COMMAND} scheduler"
+        command = f"{AIRFLOW_COMMAND} webserver -p {port}"
+    elif mode in {"scheduler", "worker"}:
+        command = f"{AIRFLOW_COMMAND} {mode}"
     else:
         raise RuntimeError(f"Invalid mode: {repr(mode)}")
 
