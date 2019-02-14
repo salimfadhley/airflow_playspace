@@ -1,6 +1,0 @@
-#! /usr/local/bin/xonsh
-import os
-
-def main():
-    airflow_home_dir = os.environ.get("AIRFLOW_HOME")
-    print(f"Installing Airflow to {airflow_home_dir}.")

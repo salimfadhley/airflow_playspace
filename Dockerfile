@@ -1,4 +1,4 @@
-FROM salimfadhley/testpython:latest AS base_python
+FROM python:3.6 AS base_python
 ENV AIRFLOW_HOME=/airflow
 RUN pip install --upgrade pip setuptools
 RUN useradd -u 1000 airflow
@@ -14,6 +14,6 @@ VOLUME /airflow
 FROM base_python AS airflow
 WORKDIR /project/src
 RUN SLUGIFY_USES_TEXT_UNIDECODE=yes python -m pip install -e /project/src
-ENTRYPOINT ["/project/bin/entrypoint.xonsh"]
 USER airflow
 WORKDIR /airflow
+EXPOSE 8080

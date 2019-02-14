@@ -10,7 +10,7 @@ services:
     <<: *base-dev
     build:
       context: .
-      target: application
+      target: airflow
     volumes:
       - ./src:/src
       - .:/project
@@ -25,6 +25,7 @@ services:
       - ./src:/src
       - .:/project
       - airflow_home:/airflow
+    entrypoint: ["/project/bin/entrypoint.py"]
 
 
 
