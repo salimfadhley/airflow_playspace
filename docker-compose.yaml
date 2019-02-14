@@ -1,0 +1,22 @@
+version: '3.7'
+
+x-base-dev: &base-dev
+  restart: on-failure
+
+
+services:
+
+  python:
+    <<: *base-dev
+    build:
+      context: .
+      target: application
+    volumes:
+      - ./src:/src
+      - .:/project
+      - airflow_home:/airflow
+
+
+
+volumes:
+  airflow_home:
