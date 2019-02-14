@@ -14,7 +14,7 @@ def main(mode:str, port:int):
     if mode=="webserver":
         command = f"{AIRFLOW_COMMAND} webserver -p {port}"
     elif mode in {"scheduler", "worker"}:
-        command = f"{AIRFLOW_COMMAND} {mode}"
+        command = f"{AIRFLOW_COMMAND} {mode} --help"
     else:
         raise RuntimeError(f"Invalid mode: {repr(mode)}")
 

@@ -15,10 +15,14 @@ services:
     build:
       context: .
       target: airflow
-    volumes:
-      - ./src:/src
-      - .:/project
-      - ./data/airflow:/airflow
+
+
+  airflow:
+    <<: *base-dev
+    build:
+      context: .
+      target: airflow
+    entrypoint: ["airflow"]
 
   airflow_scheduler:
     <<: *base-dev
@@ -41,17 +45,17 @@ services:
     depends_on:
       - "airflow_scheduler"
 
-  airflow_worker:
-    <<: *base-dev
-    build:
-      context: .
-      target: airflow
-    entrypoint: ["python"]
-    command: ['/project/bin/entrypoint.py', 'worker']
-    ports:
-      - "8080:8080"
-    depends_on:
-      - "airflow_scheduler"
+#  airflow_worker:
+#    <<: *base-dev
+#    build:
+#      context: .
+#      target: airflow
+#    entrypoint: ["python"]
+#    command: ['/project/bin/entrypoint.py', 'worker']
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - "airflow_scheduler"
 
 
 
