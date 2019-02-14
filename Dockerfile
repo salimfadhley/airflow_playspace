@@ -11,8 +11,9 @@ RUN mkdir /home/airflow
 RUN chown --recursive airflow:airflow /home/airflow
 VOLUME /airflow
 
-FROM base_python AS application
+FROM base_python AS airflow
 WORKDIR /project/src
 RUN SLUGIFY_USES_TEXT_UNIDECODE=yes python -m pip install -e /project/src
+ENTRYPOINT ["/project/bin/entrypoint.xonsh"]
 USER airflow
 WORKDIR /airflow

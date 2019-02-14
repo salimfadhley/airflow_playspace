@@ -16,6 +16,16 @@ services:
       - .:/project
       - airflow_home:/airflow
 
+  airflow:
+    <<: *base-dev
+    build:
+      context: .
+      target: airflow
+    volumes:
+      - ./src:/src
+      - .:/project
+      - airflow_home:/airflow
+
 
 
 volumes:
