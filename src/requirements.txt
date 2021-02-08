@@ -1,4 +1,4 @@
 click
 xonsh
 unidecode==1.1.0
-apache-airflow[postgres,mysql,s3]
+apache-airflow[postgres,s3,mysql]==2.0.1
