@@ -1,4 +1,4 @@
-click
+click==8.1.7
 xonsh
 unidecode==1.1.0
 apache-airflow[postgres,mysql,s3]
